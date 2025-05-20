@@ -114,3 +114,8 @@
 .loader.hidden {
   display: none;
 }
+
+.load-more-btn.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}

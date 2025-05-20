@@ -1,4 +1,4 @@
-import { getImagesByQuery } from './js/pixabay-api.js';
+import { getImagesByQuery } from './js/pixabay-api';
 import {
   createGallery,
   clearGallery,
@@ -14,11 +14,7 @@ const form = document.querySelector('.form');
 const input = form.elements['search-text'];
 const gallery = document.querySelector('.gallery');
 
-const loadMoreBtn = document.createElement('button');
-loadMoreBtn.textContent = 'Load more';
-loadMoreBtn.classList.add('load-more-btn');
-loadMoreBtn.style.display = 'none';
-document.body.appendChild(loadMoreBtn);
+const loadMoreBtn = document.querySelector('.load-more-btn');
 
 let currentPage = 1;
 let currentQuery = '';
@@ -38,7 +34,7 @@ form.addEventListener('submit', async e => {
 
   clearGallery();
   currentPage = 1;
-  loadMoreBtn.style.display = 'none';
+  loadMoreBtn.classList.add('hidden');
   showLoader();
 
   try {
@@ -54,7 +50,7 @@ form.addEventListener('submit', async e => {
     } else {
       createGallery(data.hits);
       if (currentPage * 15 < totalHits) {
-        loadMoreBtn.style.display = 'block';
+        loadMoreBtn.classList.remove('hidden');
       } else {
         iziToast.info({
           message: "We're sorry, but you've reached the end of search results.",
@@ -81,7 +77,7 @@ loadMoreBtn.addEventListener('click', async () => {
     scrollToNewImages();
 
     if (currentPage * 15 >= totalHits) {
-      loadMoreBtn.style.display = 'none';
+      loadMoreBtn.classList.add('hidden');
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
       });
