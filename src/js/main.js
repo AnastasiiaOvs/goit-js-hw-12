@@ -5,7 +5,7 @@ import {
   showLoader,
   hideLoader,
   scrollToNewImages,
-} from './render.functions.js';
+} from './render-functions.js';
 
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
