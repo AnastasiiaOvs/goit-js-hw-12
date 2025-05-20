@@ -5,6 +5,8 @@ import {
   showLoader,
   hideLoader,
   scrollToNewImages,
+  showLoadMoreBtn,
+  hideLoadMoreBtn,
 } from './js/render-functions.js';
 
 import iziToast from 'izitoast';
@@ -12,9 +14,6 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.form');
 const input = form.elements['search-text'];
-const gallery = document.querySelector('.gallery');
-
-const loadMoreBtn = document.querySelector('.load-more-btn');
 
 let currentPage = 1;
 let currentQuery = '';
@@ -34,7 +33,7 @@ form.addEventListener('submit', async e => {
 
   clearGallery();
   currentPage = 1;
-  loadMoreBtn.classList.add('hidden');
+  hideLoadMoreBtn();
   showLoader();
 
   try {
@@ -50,7 +49,7 @@ form.addEventListener('submit', async e => {
     } else {
       createGallery(data.hits);
       if (currentPage * 15 < totalHits) {
-        loadMoreBtn.classList.remove('hidden');
+        showLoadMoreBtn();
       } else {
         iziToast.info({
           message: "We're sorry, but you've reached the end of search results.",
@@ -67,7 +66,7 @@ form.addEventListener('submit', async e => {
   }
 });
 
-loadMoreBtn.addEventListener('click', async () => {
+document.querySelector('.load-more-btn').addEventListener('click', async () => {
   currentPage += 1;
   showLoader();
 
@@ -77,7 +76,7 @@ loadMoreBtn.addEventListener('click', async () => {
     scrollToNewImages();
 
     if (currentPage * 15 >= totalHits) {
-      loadMoreBtn.classList.add('hidden');
+      hideLoadMoreBtn();
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
       });

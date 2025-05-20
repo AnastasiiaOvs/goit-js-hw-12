@@ -3,6 +3,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryContainer = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more-btn');
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -65,4 +66,14 @@ export function scrollToNewImages() {
     top: cardHeight * 2,
     behavior: 'smooth',
   });
+}
+
+export function showLoadMoreBtn() {
+  loadMoreBtn.classList.remove('hidden');
+  loadMoreBtn.disabled = false;
+}
+
+export function hideLoadMoreBtn() {
+  loadMoreBtn.classList.add('hidden');
+  loadMoreBtn.disabled = true;
 }
